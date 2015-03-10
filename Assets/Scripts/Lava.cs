@@ -8,6 +8,8 @@ public class Lava : MonoBehaviour {
 	void OnCollisionEnter(Collision c)
 	{
 		if(c.gameObject.GetComponent("Player") != null)
+		{
 			c.gameObject.transform.position = SpawnPoint.position;
+		}
 	}
 }

@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 		{
 			Rigidbody shot = Instantiate(projectile, pSpawn.position, pSpawn.rotation) as Rigidbody;
 			shot.AddForce(pSpawn.forward * 1000f);
-			proj_cool = 5f;
+			proj_cool = 3f;
 		}
 		if(proj_cool > 0f)
 			proj_cool -= Time.deltaTime;
@@ -42,12 +42,15 @@ public class Player : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.G) && def_cool == 0)
 		{
 			Rigidbody def = Instantiate(shield, transform.position, transform.rotation) as Rigidbody;
-			def_cool = 25f;
+			def_cool = 15f;
 		}
+		if(Input.GetMouseButtonUp(0))
+			canJump = false;
 		if(def_cool > 0f)
 			def_cool -= Time.deltaTime;
 		else
 			def_cool = 0f;
+
 	}
 	void OnCollisionEnter()
 	{

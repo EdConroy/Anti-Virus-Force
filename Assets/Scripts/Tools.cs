@@ -7,7 +7,7 @@ public class Tools : MonoBehaviour {
     public Transform point;
     private RaycastHit gPoint, target;
     private Vector3 dist;
-    private Quaternion origin,camera_position;
+    private Quaternion origin, camera_position;
 
 	void Start () 
     {
@@ -16,23 +16,25 @@ public class Tools : MonoBehaviour {
 	}
 	void Update () 
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//casts a ray based on the cursor's location
-        if(!isGrappled && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out gPoint, 50))//Grapple Script
-        {
-            isGrappled = true;
-            dist = gPoint.point;
-            point = gPoint.collider.gameObject.transform;
-            Camera.main.GetComponent<Camera>().transform.LookAt(dist);
-            Debug.DrawRay(dist,-ray.direction* gPoint.distance,Color.green,10f);
-			transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            /*
-             * Rotates depending on the player's choice of swing direction at a
-             * constant speed of 20
-             */
-            /*
-             * The below code allows the player to reel in the grappling hook and extend the grappling hook
-             */
-        }
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//casts a ray based on the cursor's location
+		if(!isGrappled && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out gPoint, 50))//Grapple Script
+		{
+			if(!gPoint.transform.gameObject.CompareTag("Border"))
+			{
+				isGrappled = true;
+				dist = gPoint.point;
+				point = gPoint.collider.gameObject.transform;
+				Debug.DrawRay(dist,-ray.direction* gPoint.distance,Color.green,10f);
+				transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				/*
+	             * Rotates depending on the player's choice of swing direction at a
+	             * constant speed of 20
+	             */
+				/*
+	             * The below code allows the player to reel in the grappling hook and extend the grappling hook
+	             */
+			}
+		}
         if(isGrappled && !Input.GetMouseButtonUp(0))
         {
 			gameObject.GetComponent<Rigidbody>().useGravity = false;

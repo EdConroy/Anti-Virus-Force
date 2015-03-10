@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour {
 			transform.LookAt(player);
 			Rigidbody shot = Instantiate(projectile, pSpawn.position, pSpawn.rotation) as Rigidbody;
 			shot.AddForce(pSpawn.forward * 100f);
-			proj_cool = 7f;
+			proj_cool = 4.5f;
 		}
 	}
 	void OnCollisionStay(Collision c)
