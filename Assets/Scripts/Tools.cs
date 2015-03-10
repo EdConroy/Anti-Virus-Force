@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Tools : MonoBehaviour {
     public float movementSpeed = 20;
-    public bool isGrappled = false;
+    public static bool isGrappled = false;
     public Transform point;
     private RaycastHit gPoint, target;
     private Vector3 dist;
     private Quaternion origin, camera_position;
+	public GameObject grap_point;
 
 	void Start () 
     {
@@ -19,22 +20,21 @@ public class Tools : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//casts a ray based on the cursor's location
 		if(!isGrappled && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out gPoint, 50))//Grapple Script
 		{
-			if(!gPoint.transform.gameObject.CompareTag("Border") && gPoint.transform.gameObject.GetComponent("MouseOrbit") == null)
+			if(!gPoint.transform.gameObject.CompareTag("Border") && 
+			   !gPoint.transform.gameObject.GetComponent("Enemy") && 
+			   gPoint.transform.gameObject.GetComponent("MouseOrbit") == null)
 			{
 				isGrappled = true;
 				dist = gPoint.point;
 				point = gPoint.collider.gameObject.transform;
+				Instantiate(grap_point, dist, point.rotation);
 				Debug.DrawRay(dist,-ray.direction* gPoint.distance,Color.green,10f);
 				transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-				/*
-	             * Rotates depending on the player's choice of swing direction at a
-	             * constant speed of 20
-	             */
-				/*
-	             * The below code allows the player to reel in the grappling hook and extend the grappling hook
-	             */
 			}
 		}
+		/*
+	     * The below code allows the player to reel in the grappling hook and extend the grappling hook
+	     */
         if(isGrappled && !Input.GetMouseButtonUp(0))
         {
 			gameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -50,9 +50,9 @@ public class Tools : MonoBehaviour {
         if(isGrappled && Input.GetMouseButtonUp(0))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, origin, 1f);//resets the player position once left mouse button is released
-            Camera.main.GetComponent<Camera>().transform.rotation = camera_position;
+            Camera.main.GetComponent<Camera>().transform.rotation = camera_position; //Realign the camera
             isGrappled = false;
-			gameObject.GetComponent<Rigidbody>().useGravity = true;
+			gameObject.GetComponent<Rigidbody>().useGravity = true; 
         }
 	}
 	void OnCollisionEnter()

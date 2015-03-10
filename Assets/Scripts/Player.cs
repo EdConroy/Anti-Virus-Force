@@ -44,8 +44,9 @@ public class Player : MonoBehaviour
 			Rigidbody def = Instantiate(shield, transform.position, transform.rotation) as Rigidbody;
 			def_cool = 15f;
 		}
-		if(Input.GetMouseButtonUp(0))
+		if(Input.GetMouseButtonDown(0))
 			canJump = false;
+		else canJump = true;
 		if(def_cool > 0f)
 			def_cool -= Time.deltaTime;
 		else
