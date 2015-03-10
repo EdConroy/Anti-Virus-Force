@@ -19,7 +19,7 @@ public class Tools : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//casts a ray based on the cursor's location
 		if(!isGrappled && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out gPoint, 50))//Grapple Script
 		{
-			if(!gPoint.transform.gameObject.CompareTag("Border"))
+			if(!gPoint.transform.gameObject.CompareTag("Border") && gPoint.transform.gameObject.GetComponent("MouseOrbit") == null)
 			{
 				isGrappled = true;
 				dist = gPoint.point;
