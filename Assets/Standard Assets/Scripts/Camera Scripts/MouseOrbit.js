@@ -27,10 +27,8 @@ function Start () {
 
 function LateUpdate () {
     if (target) { 
-    	if(!is_col)
-    	{
-        	x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
-        }
+    
+        x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
         y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02;
  		
  		y = ClampAngle(y, yMinLimit, yMaxLimit);
@@ -51,18 +49,4 @@ static function ClampAngle (angle : float, min : float, max : float) {
 	if (angle > 360)
 		angle -= 360;
 	return Mathf.Clamp (angle, min, max);
-}
-function OnTriggerStay(other : Collider)
-{
-	if(other.gameObject.CompareTag("Border"))
-	{
-		is_col = true;
-	}
-}
-function OnTriggerExit(other : Collider)
-{
-	if(other.gameObject.CompareTag("Border"));
-	{
-		is_col = false;
-	}
 }

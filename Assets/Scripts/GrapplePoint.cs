@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GrapplePoint : MonoBehaviour {
 
-	public float grap_cool = 2f;
+	public float grap_cool = 1f;
 	// Use this for initialization
 	void Start ()
 	{

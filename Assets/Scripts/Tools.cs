@@ -21,8 +21,7 @@ public class Tools : MonoBehaviour {
 		if(!isGrappled && Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out gPoint, 50))//Grapple Script
 		{
 			if(!gPoint.transform.gameObject.CompareTag("Border") && 
-			   !gPoint.transform.gameObject.GetComponent("Enemy") && 
-			   gPoint.transform.gameObject.GetComponent("MouseOrbit") == null)
+			   !gPoint.transform.gameObject.GetComponent("Enemy"))
 			{
 				isGrappled = true;
 				dist = gPoint.point;
